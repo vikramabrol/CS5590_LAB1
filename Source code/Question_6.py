@@ -19,18 +19,25 @@ data = dataset.select_dtypes(include=[np.number]).interpolate().dropna()
 print(sum(data.isnull().sum() != 0))
 print("\n")
 
+numeric_features = dataset.select_dtypes(include=[np.number])
+corr = numeric_features.corr()
+print(corr['number_of_reviews'].sort_values(ascending=False)[:10], '\n')
+
+# drop uncorrelated data (-ve correlations)
+data = data.drop(['host_id', 'id'], axis=1)
+
 #Setup x values off of dataset
 x = data.select_dtypes(include=[np.number])
 print(x.shape)
 
-numeric_features = dataset.select_dtypes(include=[np.number])
-corr = numeric_features.corr()
-print(corr['reviews_per_month'].sort_values(ascending=False)[:10], '\n')
-
+sns.heatmap(corr,
+        xticklabels=corr.columns,
+        yticklabels=corr.columns)
+plt.show()
 
 sns.FacetGrid(dataset, hue="neighbourhood_group", height=4).map(plt.scatter, "number_of_reviews","price").add_legend()
 sns.FacetGrid(dataset, hue="neighbourhood_group", height=4).map(plt.scatter, "reviews_per_month","price").add_legend()
-sns.FacetGrid(dataset, hue="neighbourhood_group", height=4).map(plt.scatter, "number_of_reviews","availability_365").add_legend()
+sns.FacetGrid(dataset, hue="neighbourhood_group", height=4).map(plt.scatter, "availability_365", "price").add_legend()
 sns.FacetGrid(dataset, hue="neighbourhood_group", height=4).map(plt.scatter, "calculated_host_listings_count","price").add_legend()
 plt.show()
 
