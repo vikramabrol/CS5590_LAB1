@@ -1,5 +1,6 @@
 # CS5590_LAB1
 
+### All the questions have individual wiki pages of their own, here are the links.
 [Question_1](https://github.com/vikramabrol/CS5590_LAB1/wiki/Question-1)
 
 [Source_Code,](https://github.com/vikramabrol/CS5590_LAB1/blob/master/Source%20code/Question_1.py)
