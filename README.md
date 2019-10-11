@@ -1,8 +1,4 @@
 # CS5590_LAB1
-lab assignment 1
-
-***
-Welcome to the CS5590_LAB1 wiki!
 
 [Question_1](https://github.com/vikramabrol/CS5590_LAB1/wiki/Question-1)
 
