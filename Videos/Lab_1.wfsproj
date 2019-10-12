@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ProjectMessage>
+<IsEditor>1</IsEditor>
+<SettingMessage>
+    <Screen selectIndex="0" enabled="1">
+        <ScreenCapture>
+            <CaptureType>0</CaptureType>
+            <FrameRate>25</FrameRate>
+            <CropRect>0 0 1280 720</CropRect>
+            <RecordLogicPixel>0</RecordLogicPixel>
+        </ScreenCapture>
+        <Game>
+            <GameName></GameName>
+            <FrameRate>60</FrameRate>
+        </Game>
+    </Screen>
+    <Camera enabled="0">
+        <CameraName>Integrated Camera</CameraName>
+        <Resolution>
+            <ResolutionWidth>640</ResolutionWidth>
+            <ResolutionHeight>480</ResolutionHeight>
+        </Resolution>
+        <FrameRate>30</FrameRate>
+    </Camera>
+    <Audio enabled="1">
+        <Microphone>Microphone Array (Realtek High Definition Audio)</Microphone>
+        <ComputerAudio>1</ComputerAudio>
+    </Audio>
+</SettingMessage>
+
+<PreviewMessage/>
+
+<MatterMessage>
+ <MediaInfo Path="//cmh/user/folders2/vabrol/FilmoraScreen/RecordFiles/Rec_17.23.53 20191011.mp4" Title="Rec_17.23.53 20191011"></MediaInfo>
+ <MediaInfo Path="//cmh/user/folders2/vabrol/FilmoraScreen/RecordFiles/Rec_17.55.40 20191011.mp4" Title="Rec_17.55.40 20191011"></MediaInfo>
+ <MediaInfo Path="//cmh/user/folders2/vabrol/FilmoraScreen/RecordFiles/Rec_18.01.54 20191011.mp4" Title="Rec_18.01.54 20191011"></MediaInfo>
+ <MediaInfo Path="//cmh/user/folders2/vabrol/FilmoraScreen/RecordFiles/Rec_18.10.08 20191011.mp4" Title="Rec_18.10.08 20191011"></MediaInfo>
+ <MediaInfo Path="//cmh/user/folders2/vabrol/FilmoraScreen/RecordFiles/Rec_18.24.08 20191011.mp4" Title="Rec_18.24.08 20191011"></MediaInfo>
+ <MediaInfo Path="//cmh/user/folders2/vabrol/FilmoraScreen/RecordFiles/Rec_18.40.46 20191011.mp4" Title="Rec_18.40.46 20191011"></MediaInfo>
+ <MediaInfo Path="//cmh/user/folders2/vabrol/FilmoraScreen/RecordFiles/Rec_18.48.52 20191011.mp4" Title="Rec_18.48.52 20191011"></MediaInfo>
+ <MediaInfo Path="//cmh/user/folders2/vabrol/FilmoraScreen/RecordFiles/Rec_19.15.35 20191011.mp4" Title="Rec_19.15.35 20191011"></MediaInfo>
+</MatterMessage>
+
+<ProjectSettings><ExportName>My Project</ExportName><ResolutionWidth>1280</ResolutionWidth><ResolutionHeight>720</ResolutionHeight><PlaybackResolution>0.5</PlaybackResolution><BackgroundColor>#000000</BackgroundColor><FrameRate>25</FrameRate></ProjectSettings>
+<TimelineMessage>
+<TimeLine>
+<Properties Count="48">
+<Property key="Composition.Mode" type="int" value="0"/>
+<Property key="Composition.Opacity" type="double" value="1.000000"/>
+<Property key="Key_FreezenTracks" type="std::wstring" value=""/>
+<Property key="Key_HidenTracks" type="std::wstring" value=""/>
+<Property key="Key_TrackMarkers" type="std::wstring" value=""/>
+<Property key="Level" type="int" value="0"/>
+<Property key="NLEVersion" type="std::wstring" value="(5, 5, 1, 110)"/>
+<Property key="Name" type="std::wstring" value="TopTimeline"/>
+<Property key="REFCLSID" type="GUID" value="{CD61E0E4-0074-3FD5-4915-951546E34A03}"/>
+<Property key="REFIID" type="GUID" value="{29FDB4EE-DE39-151E-ED38-06C8CFB45CDA}"/>
+<Property key="Render.AnchorPoint" type="NLEPointF" value="x:0.000000, y:0.000000"/>
+<Property key="Render.BackgroundColor" type="int" value="-16777216"/>
+<Property key="Render.Backplay.BOOL" type="int" value="0"/>
+<Property key="Render.BitsPerSample" type="int" value="16"/>
+<Property key="Render.Channels" type="int" value="2"/>
+<Property key="Render.EnableAudio" type="int" value="1"/>
+<Property key="Render.EnableVideo" type="int" value="1"/>
+<Property key="Render.Framerate" type="NLERational" value="[25000000, 1000000]: 25.0000000 "/>
+<Property key="Render.Hidden" type="int" value="0"/>
+<Property key="Render.Mode" type="int" value="0"/>
+<Property key="Render.Position" type="int" value="0"/>
+<Property key="Render.RangeFrameNumber" type="NLERange" value="Start:0, End:2147483640"/>
+<Property key="Render.Region" type="NLERectF" value="left:0.000000, top:0.000000, width:1.000000, height:1.000000"/>
+<Property key="Render.SampleRate" type="int" value="44100"/>
+<Property key="Render.Scale" type="NLERational" value="[1, 1]: 1.0000000 "/>
+<Property key="Render.Size" type="NLESize" value="Width:593, cy:333"/>
+<Property key="Render.TotalFrameCount" type="int" value="0"/>
+<Property key="Render.Using.Taskpool" type="int" value="1"/>
+<Property key="Render.VideoStabilizer.BOOL" type="int" value="0"/>
+<Property key="Source.BitsPerSample" type="int" value="16"/>
+<Property key="Source.Channles" type="int" value="2"/>
+<Property key="Source.Framerate" type="NLERational" value="[25, 1]: 25.0000000 "/>
+<Property key="Source.HasAudioStream" type="int" value="0"/>
+<Property key="Source.HasVideoStream" type="int" value="0"/>
+<Property key="Source.RangeFrameNumber" type="NLERange" value="Start:0, End:2147483640"/>
+<Property key="Source.Region" type="NLERectF" value="left:0.000000, top:0.000000, width:1.000000, height:1.000000"/>
+<Property key="Source.SampleRate" type="int" value="44100"/>
+<Property key="Source.Size" type="NLESize" value="Width:593, cy:333"/>
+<Property key="Source.TotalFrameCount" type="int" value="0"/>
+<Property key="Source_FileType" type="int" value="0"/>
+<Property key="Transform.Angle" type="double" value="0.000000"/>
+<Property key="Transform.CenterPoint" type="NLEPointF" value="x:0.500000, y:0.500000"/>
+<Property key="Transform.Enabled" type="int" value="1"/>
+<Property key="Transform.KeepRatio" type="int" value="1"/>
+<Property key="Transform.ResizeScale" type="NLESizeF" value="Width:1.000000, cy:1.000000"/>
+<Property key="fade.in.enabled" type="int" value="1"/>
+<Property key="fade.out.enabled" type="int" value="1"/>
+<Property key="kGPU.GPUFirst" type="int" value="1"/>
+</Properties>
+</TimeLine>
+</TimelineMessage>
+
+</ProjectMessage>

@@ -28,7 +28,7 @@ print(nulls)
 
 ##Build a linear model
 data = airfare.select_dtypes(include=[np.number])
-y = airfare.avrg_fare
+y = np.log(airfare.avrg_fare)
 X = data.drop(['avrg_fare'], axis=1)
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(
