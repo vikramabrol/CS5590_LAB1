@@ -80,7 +80,7 @@ print("SVM accuracy is:", acc_svm)
 
 
 # Apply KNN
-knn = KNeighborsClassifier(n_neighbors=3)
+knn = KNeighborsClassifier(n_neighbors=5)
 
 knn.fit(X_train, y_train)
 future_y_knn = knn.predict(X_test)
