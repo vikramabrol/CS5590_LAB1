@@ -1,0 +1,581 @@
+***
+Question 1
+
+# Program to find the longest substring without repeating characters
+string_input = input("Enter a string containing the word python: ")
+list_string = list(string_input)
+
+# print(list_string)
+
+# initiate an empty list that will be used to get unique list
+unique_string_list = []
+for i in list_string:
+    if i not in unique_string_list:
+        unique_string_list.append(i)
+print(''.join(unique_string_list))
+
+***
+Question 2
+
+input_list = [('John', ('Physics', 80)),
+              ('Daniel', ('Science', 90)),
+              ('John', ('Science', 95)),
+              ('Mark', ('Maths', 100)),
+              ('Daniel', ('History', 75)),
+              ('Mark', ('Social', 95))]
+
+# Sort the list items
+new_list = sorted(input_list)
+print(new_list)
+
+# initiate empty dictionary that we'll add end results to
+unique_list = {}
+
+for i in new_list:
+    if i[0] in unique_list:
+        unique_list[i[0]].append(i[1])
+    else:
+        unique_list[i[0]] = [i[1]]
+print(unique_list)
+
+***
+Quetion 3
+
+import numpy as np
+import random
+
+# for First Class or Business Class, reserve 1 to 5 rows, economy class for the rest
+# for first class or business class, put the price range between 1000 and 2000
+# for employees, put price as 0 for economy
+# create dictionary with all values, price, seat number, ticket type etc
+
+# Create flight class to enter flight details
+class flight:
+    def __init__(self, airline_number, origin, destination, date_of_flying):
+        self.airline_number = airline_number
+        self.origin = origin
+        self.destination = destination
+        self.date_of_flying = date_of_flying
+        self.flight_details = {'airline_number': self.airline_number,
+                               'origin': self.origin,
+                               'destination': self.destination,
+                               'date_of_flying': self.date_of_flying}
+
+# Define a class on ticket where you enter ticket details and calculate price based on ticket type and class
+# ask user input on number of seats on the plane
+# assign seat based on ticket class and type
+class ticket:
+    num_seats = int(input("Enter number of seats (multiple of 5) >> "))
+    passenger_count = 0
+    def __init__(self, ticket_class='Economy', ticket_type='Non_Employee'):
+        self.ticket_class = ticket_class
+        self.ticket_type = ticket_type
+        self.__class__.num_seats -= 1
+        self.__class__.passenger_count += 1
+    def calculate_price(self):
+        ticket_price = 0
+        if self.ticket_type != 'Employee':
+            if self.ticket_class == 'First_Class':
+                ticket_price = 1500
+            elif self.ticket_class == 'Business_Class':
+                ticket_price = 2000
+            elif self.ticket_class == 'Economy':
+                ticket_price = 500
+        else:
+            if self.ticket_class == 'First_Class':
+                ticket_price = 1200
+            elif self.ticket_class == 'Business_Class':
+                ticket_price = 1500
+            elif self.ticket_class == 'Economy':
+                ticket_price = 0
+        return ticket_price
+
+    def assign_seat(self):
+        col = np.array(range(int(self.num_seats) // 5))
+        # col = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20])
+        row = np.array(['A', 'B', 'C', 'D', 'E'])
+        all_seats = np.transpose([np.tile(col, len(row)), np.repeat(row, len(col))])
+        bc_seats = np.transpose([np.tile(col[:3], len(row)), np.repeat(row, len(col[:3]))])
+        fc_seats = np.transpose([np.tile(col[3:6], len(row)), np.repeat(row, len(col[3:6]))])
+        economy_seats = np.transpose([np.tile(col[6:], len(row)), np.repeat(row, len(col[6:]))])
+        if self.ticket_class == 'First_Class':
+            assigned_seat = random.choice(fc_seats)
+        elif self.ticket_class == 'Business_Class':
+            assigned_seat = random.choice(bc_seats)
+        else:
+            assigned_seat = random.choice(all_seats)
+        new_seats = np.delete(all_seats, np.where(all_seats == assigned_seat))
+        remaining_seats = int(self.num_seats) - 1
+        seats = {'assigned_seat': assigned_seat,
+                      'rem_seats': remaining_seats}
+        return seats
+
+    def ticket_details(self):
+        tickets = {'ticket_class': self.ticket_class,
+                  'ticket_type': self.ticket_type,
+                  'ticket_price': self.calculate_price()
+                   }
+        return tickets
+# Implement parent class to inherit from flight and ticket classes
+# this class will be used to make the reservation
+class passenger(flight, ticket):
+    def __init__(self, airline_number, origin, destination, date_of_flying, ticket_class, ticket_type, last_name, first_name):
+        flight.__init__(self, airline_number, origin, destination, date_of_flying)
+        ticket.__init__(self, ticket_class, ticket_type)
+        self.last_name = last_name
+        self.first_name = first_name
+        self.passenger_details = {'last_name': self.last_name,
+                                  'first_name': self.first_name,
+                                  'airline_number': self.airline_number,
+                                  'origin': self.origin,
+                                  'destination': self.destination,
+                                  'date': self.date_of_flying,
+                                  'assigned_seat': self.assign_seat().get('assigned_seat'),
+                                  'ticket_price': self.ticket_details().get('ticket_price')}
+        passenger_record = {}
+        if self.num_seats != 0:
+            passenger_record.update(self.passenger_details)
+            print(passenger_record)
+
+    def check_for_tickets(self):
+        if self.num_seats != 0:
+            self.num_seats -= 1
+            return self.num_seats
+    def pass_count(self):
+        self.passenger_count += 1
+
+#print(ticket.assign_seat(ticket))
+pass1 = passenger('A4634', 'STL', 'KC', '2019/11/02', 'Economy', 'Non_Employee', 'Smith', 'John')
+pass2 = passenger('A4634', 'ORD', 'KC', '2019/11/02', 'Economy', 'Employee', 'Smith', 'Steve')
+pass2 = passenger('A4634', 'ORD', 'KC', '2019/11/02', 'First_Class', 'Non_Employee', 'Smith', 'Sam')
+print("Number of passengers booked: " + str(passenger.passenger_count))
+
+print("Number of seats remaining: " + str(passenger.num_seats))
+
+***
+Question 4
+
+from bs4 import BeautifulSoup
+import requests
+import pandas as pd
+import string
+import json
+import re
+import time
+
+# The key problem in this question was trying to figure out the right URL to scrape as the webpage has a lot of javascript
+# Inspect on chrome helped, going to Network tab helped figure out the right URL from https://www.umkc.edu/calendar/
+url = "https://www.trumba.com/s.aspx?calendar=UMKC&widget=main&date=" + time.strftime('%Y%m%d') + "&index=0&srpc.cbid=trumba.spud.4&srpc.get=true"
+html = requests.get(url)
+web_content = html.content
+soup = BeautifulSoup(web_content, "html.parser")
+# print(soup)
+
+# Since html was tagged inside of body of the scraped page, I did a subscript to end up with the right html
+body_start = html.text.find('<!DOCTYPE html PUBLIC')
+body_end = html.text.find('</html>') + 7
+body_part = html.text[body_start:body_end]
+body = BeautifulSoup(body_part, "lxml")
+
+# Page header
+title = body.find('div', role=re.compile("heading")).text
+events = []
+events_all = body.find_all('a', role=re.compile("heading"))
+for i in events_all:
+    events.append(i.text)
+times = []
+times_all = body.find_all('span', role=re.compile("heading"))
+for j in times_all:
+    times.append(j.text)
+
+dates_all = body.find_all('span', {'class': re.compile('StartDate')})
+dates = []
+for j in dates_all:
+    dates.append(j.text)
+locations_all = body.find_all('span', {'class': re.compile('Location')})
+locations = []
+for k in locations_all:
+    locations.append(k.text)
+
+# Find tables
+table = body.find('table', {'class': re.compile('SimpleTableTable')})
+print(table)
+
+# table rows
+tr = table.find_all('tr')
+print(tr)
+
+data = []
+
+# table data
+for x in tr[1:]:
+    td = x.find_all('td')
+    #print(td)
+    y = [x.text for x in td]
+    data.append(y)
+data_h=[]
+
+#table headers
+for x in tr[1:]:
+    th = x.find_all('th')
+    #print(td)
+    y = [x.text for x in th]
+    data_h.append(y)
+
+th.insert(0, 'index')
+#print(th)
+# Since data is at two levels, I had to combine them into a single dataframe
+
+df = pd.DataFrame(data)
+df_h = pd.DataFrame(data_h)
+comb_df = pd.merge(df, df_h, left_index=True, right_index=True)
+calendar_df = comb_df[['2_x', '3_x', '0_y', '4_x']]
+calendar_df.columns = ['Date', 'Time', 'Event', 'Location']
+
+# Write to file.
+calendar_df.to_excel('UMKC_Calendar.xlsx')
+
+***
+Question 5
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
+from sklearn import metrics
+import seaborn as sns
+from sklearn import svm
+from sklearn.neighbors import KNeighborsClassifier
+
+# Data from https://www.kaggle.com/rajeevw/ufcdata
+train_df = pd.read_csv('ufcData.csv')
+# train_df = pd.DataFrame(train)
+# print(train_df.head())
+nulls = pd.DataFrame(train_df.isnull().sum().sort_values(ascending=False))
+nulls.columns = ['Null Count']
+nulls.index.name = 'Feature'
+print(nulls)
+
+# Fill the rest of the columns with most frequent values
+train_df = train_df.fillna(train_df.mode().iloc[0])
+#Encode the categorial feature R_Stance
+train_df['R_Stance'] = train_df['R_Stance'].map(
+    {'Open Stance': 0, 'Orthodox': 1, 'Sideways': 2, 'Southpaw': 3, 'Switch': 4}).astype(int)
+
+# Handle Nulls if any
+data = train_df.select_dtypes(include=[np.number]).interpolate().dropna()
+print(sum(data.isnull().sum() != 0))
+print("\n")
+
+# Nulls after last step
+nulls = pd.DataFrame(data.isnull().sum().sort_values(ascending=False))
+nulls.columns = ['Null Count']
+nulls.index.name = 'Feature'
+print(nulls)
+
+# train_df = train_df.fillna(dataset.mode().iloc[0])
+
+numeric_features = train_df.select_dtypes(include=[np.number])
+corr = numeric_features.corr()
+print(corr['R_wins'].sort_values(ascending=False)[:10], '\n')
+
+sns.heatmap(corr,
+            xticklabels=corr.columns,
+            yticklabels=corr.columns)
+plt.show()
+
+# Assigning x and y for test and train data
+# Since there are a lot of fields, consider only R_ category
+data = data[
+    ['R_wins', 'R_total_rounds_fought', 'R_longest_win_streak', 'R_win_by_Decision_Unanimous', 'R_win_by_KO/TKO',
+     'R_losses', 'R_win_by_Submission', 'R_total_title_bouts', 'R_Stance']]
+y = data['R_wins']
+x = data.drop(['R_wins'], axis=1)
+
+# heat map after deciding x and y
+numeric_features = data.select_dtypes(include=[np.number])
+corr = numeric_features.corr()
+print(corr['R_wins'].sort_values(ascending=False)[:10], '\n')
+
+sns.heatmap(corr,
+            xticklabels=corr.columns,
+            yticklabels=corr.columns)
+plt.show()
+
+X_train, X_test, y_train, y_test = train_test_split(x, y, random_state=42, test_size=0.33)
+
+# Apply Naive Bayes
+gaussian = GaussianNB()
+
+gaussian.fit(X_train, y_train)
+future_y_g = gaussian.predict(X_test)
+acc_g = round(gaussian.score(X_test, y_test) * 100, 2)
+print("Naive Bayes accuracy is:", acc_g)
+
+# print("classification accuracy for Naive Bayes\n *******************")
+# model_accuracy_nb = metrics.classification_report(y_test, future_y_g)
+# print(model_accuracy_nb)
+
+# Apply SVM
+svm = svm.SVC(kernel='rbf', gamma='auto')
+
+svm.fit(X_train, y_train)
+future_y_svm = svm.predict(X_test)
+acc_svm = round(svm.score(X_test, y_test) * 100, 2)
+print("SVM accuracy is:", acc_svm)
+
+# print("classification accuracy for SVM\n *******************")
+# model_accuracy_svm = metrics.classification_report(y_test, future_y_svm)
+# print(model_accuracy_svm)
+
+
+# Apply KNN
+knn = KNeighborsClassifier(n_neighbors=3)
+
+knn.fit(X_train, y_train)
+future_y_knn = knn.predict(X_test)
+acc_knn = round(knn.score(X_test, y_test) * 100, 2)
+print("KNN accuracy is:", acc_knn)
+
+# print("classification accuracy for KNN\n *******************")
+# model_accuracy_svm = metrics.classification_report(y_test, future_y_knn)
+# print(model_accuracy_knn)
+
+***
+Question 6
+
+import pandas as pd
+import numpy as np
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import LabelEncoder, StandardScaler
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.cluster import KMeans
+#dataset from Kaggle (https://www.kaggle.com/dgomonov/new-york-city-airbnb-open-data)
+dataset = pd.read_csv('AB_NYC_2019.csv')
+
+##Null values
+nulls = pd.DataFrame(dataset.isnull().sum().sort_values(ascending=False)[:25])
+nulls.columns = ['Null Count']
+nulls.index.name = 'Feature'
+print(nulls)
+
+#Drop nulls
+data = dataset.select_dtypes(include=[np.number]).interpolate().dropna()
+print(sum(data.isnull().sum() != 0))
+print("\n")
+
+numeric_features = dataset.select_dtypes(include=[np.number])
+corr = numeric_features.corr()
+print(corr['number_of_reviews'].sort_values(ascending=False)[:10], '\n')
+
+# drop uncorrelated data (-ve correlations)
+data = data.drop(['host_id', 'id'], axis=1)
+
+#Setup x values off of dataset
+x = data.select_dtypes(include=[np.number])
+print(x.shape)
+
+sns.heatmap(corr,
+        xticklabels=corr.columns,
+        yticklabels=corr.columns)
+plt.show()
+
+sns.FacetGrid(dataset, hue="neighbourhood_group", height=4).map(plt.scatter, "number_of_reviews","price").add_legend()
+sns.FacetGrid(dataset, hue="neighbourhood_group", height=4).map(plt.scatter, "reviews_per_month","price").add_legend()
+sns.FacetGrid(dataset, hue="neighbourhood_group", height=4).map(plt.scatter, "availability_365", "price").add_legend()
+sns.FacetGrid(dataset, hue="neighbourhood_group", height=4).map(plt.scatter, "calculated_host_listings_count","price").add_legend()
+plt.show()
+
+nclusters = 3  # this is the k in kmeans
+km = KMeans(n_clusters=nclusters)
+km.fit(x)
+y_cluster_kmeans = km.predict(x)
+
+from sklearn import metrics
+score = metrics.silhouette_score(x, y_cluster_kmeans)
+print("\n Silhoutte Score after applying KMeans")
+print(score)
+wcss= []
+##elbow method to know the number of clusters
+for i in range(1,8):
+    kmeans= KMeans(n_clusters=i,init='k-means++', max_iter=500,random_state=0)
+    kmeans.fit(x)
+    wcss.append(kmeans.inertia_)
+plt.plot(range(1,8),wcss, '-o')
+plt.title('the elbow method')
+plt.xlabel('Number of Clusters')
+plt.ylabel('Wcss')
+plt.show()
+
+# We found k = 3 to be the best
+from sklearn import preprocessing
+scaler = preprocessing.StandardScaler()
+scaler.fit(x)
+X_scaler = scaler.transform(x)
+X_scaled = pd.DataFrame(X_scaler, columns=x.columns)
+
+from sklearn.decomposition import PCA
+# Make an instance of the Model
+pca= PCA(2)
+X_pca= pca.fit_transform(X_scaler)
+
+#Apply kmeans algorithm on the PCA result and report your observation if the score improved or not?
+km_p = KMeans(n_clusters=3)
+km_p.fit(X_pca)
+y_cluster_kmeansp= km_p.predict(X_pca)
+
+score_p = metrics.silhouette_score(X_pca, y_cluster_kmeansp)
+print("\n Silhoutte Score after applying KMeans on PCA result dataset")
+print(score_p)
+
+***
+Question 7
+
+import nltk
+from nltk.util import ngrams
+from collections import Counter
+
+with open('nlp_input.txt', 'r') as file:
+    text = file.read()
+
+# wtokens = nltk.word_tokenize(text)
+# print(wtokens)
+
+lemmatizer = nltk.stem.WordNetLemmatizer()
+
+# print(lem_words)
+lines = text.split("\n")
+words = ' '.join([word for word in lines if word != ""])
+wtokens = nltk.word_tokenize(words)
+#reference https://machinelearningmastery.com/clean-text-machine-learning-python/
+#remove punctuation
+wtokens_clean = [word for word in wtokens if word.isalpha()]
+
+lem_words = []
+
+for x in range(len(wtokens_clean)):
+    lem_words.append(lemmatizer.lemmatize(wtokens_clean[x], 'v'))
+
+stokens = nltk.sent_tokenize(words)
+stoken_list = list(stokens)
+#print(stoken_list)
+
+#find the trigrams
+trigrams = ngrams(wtokens_clean, 3)
+
+# find frequency of trigrams
+trigram_freq = Counter(trigrams)
+print("\n")
+# print(trigram_freq)
+# Print top 10 frequent trigrams
+top_10 = trigram_freq.most_common(10)
+# print(trigram_freq.most_common(10))
+
+common_phrases = []
+
+for k, v in top_10:
+    if k != "":
+        print(" ".join(k), v)
+        common_phrases.append(" ".join(k))
+# print(common_phrases)
+
+common_list = []
+for x in stoken_list:
+    for y in common_phrases:
+        if y in x:
+            if x not in common_list:
+                common_list.append(x)
+#                print(x)
+
+#concatenate the results
+print("\n The concatenated list of sentences with most frequent trigrams")
+print("********************************************************************")
+print(" ".join(common_list))
+# common_sent = [sum(y in x for y in common_phrases) for x in stoken_list]
+# print(common_sent)
+
+***
+Question 8
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+plt.style.use(style='ggplot')
+plt.rcParams['figure.figsize'] = (10, 6)
+
+airfare = pd.read_csv("airq402.csv")
+#show descriptive stats and skewness with average airfare as output variables
+print(airfare.avrg_fare.describe())
+print("skewness:", airfare.avrg_fare.skew())
+plt.hist(airfare.avrg_fare)
+plt.show()
+
+#Correlation between X and Y variables
+numeric_features = airfare.select_dtypes(include=[np.number])
+corr = numeric_features.corr()
+print (corr['avrg_fare'].sort_values(ascending=False)[:10], '\n')
+plt.matshow(corr)
+corr.style.background_gradient(cmap='coolwarm')
+plt.show()
+
+##check on null values
+nulls = pd.DataFrame(airfare.isnull().sum().sort_values(ascending=False)[:25])
+nulls.columns = ['Null Count']
+nulls.index.name = 'Feature'
+print(nulls)
+
+
+##Build a linear model
+data = airfare.select_dtypes(include=[np.number])
+data_eda = data.drop(['mkt_share_h', 'mkt_share_l'], axis=1)
+
+y = np.log(airfare.avrg_fare)
+X = data.drop(['avrg_fare'], axis=1)
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(
+                                    X, y, random_state=42, test_size=.33)
+
+#build multiple regression model
+from sklearn import linear_model
+mlr= linear_model.LinearRegression()
+model= mlr.fit(X_train,y_train)
+
+##Evaluate the performance and visualize results
+print ("R^2 is: \n", model.score(X_test, y_test))
+predictions = model.predict(X_test)
+from sklearn.metrics import mean_squared_error
+print ('RMSE is: \n', mean_squared_error(y_test, predictions))
+print('coefficients: \n', mlr.coef_)
+
+actual_values = y_test
+plt.scatter(predictions, actual_values, alpha=.75,
+            color='b')
+plt.xlabel('Predicted')
+plt.ylabel('Y_test')
+plt.show()
+
+### Scores after EDA
+
+y_eda = np.log(airfare.avrg_fare)
+X_eda = data_eda.drop(['avrg_fare'], axis=1)
+X_train_eda, X_test_eda, y_train_eda, y_test_eda = train_test_split(
+                                    X_eda, y_eda, random_state=42, test_size=.33)
+
+#build multiple regression model
+model_eda = mlr.fit(X_train_eda,y_train_eda)
+
+##Evaluate the performance and visualize results
+print ("R^2 after EDA is: \n", model_eda.score(X_test_eda, y_test_eda))
+predictions_eda = model.predict(X_test_eda)
+from sklearn.metrics import mean_squared_error
+print ('RMSE after EDA is: \n', mean_squared_error(y_test_eda, predictions_eda))
+print('coefficients after EDA: \n', mlr.coef_)
+
+actual_values_eda = y_test_eda
+plt.scatter(predictions_eda, actual_values_eda, alpha=.75,
+            color='b')
+plt.xlabel('Predicted_EDA')
+plt.ylabel('Y_test_EDA')
+plt.show()
