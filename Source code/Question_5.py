@@ -19,6 +19,7 @@ print(nulls)
 
 # Fill the rest of the columns with most frequent values
 train_df = train_df.fillna(train_df.mode().iloc[0])
+#Encode the categorial feature R_Stance
 train_df['R_Stance'] = train_df['R_Stance'].map(
     {'Open Stance': 0, 'Orthodox': 1, 'Sideways': 2, 'Southpaw': 3, 'Switch': 4}).astype(int)
 
@@ -52,6 +53,16 @@ data = data[
 y = data['R_wins']
 x = data.drop(['R_wins'], axis=1)
 
+# heat map after deciding x and y
+numeric_features = data.select_dtypes(include=[np.number])
+corr = numeric_features.corr()
+print(corr['R_wins'].sort_values(ascending=False)[:10], '\n')
+
+sns.heatmap(corr,
+            xticklabels=corr.columns,
+            yticklabels=corr.columns)
+plt.show()
+
 X_train, X_test, y_train, y_test = train_test_split(x, y, random_state=42, test_size=0.33)
 
 # Apply Naive Bayes
@@ -80,7 +91,7 @@ print("SVM accuracy is:", acc_svm)
 
 
 # Apply KNN
-knn = KNeighborsClassifier(n_neighbors=5)
+knn = KNeighborsClassifier(n_neighbors=3)
 
 knn.fit(X_train, y_train)
 future_y_knn = knn.predict(X_test)
